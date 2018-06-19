@@ -6,7 +6,7 @@
 	<groupId>eu.b24u.demo.rest</groupId>
 	<artifactId>spring-rest-swagger2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>spring-rest-demo</name>
 	<description>Demo project for Spring Boot</description>
@@ -28,6 +28,24 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!-- <exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion> -->
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-websocket</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- need below for wildfly without tomcat -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -35,7 +53,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- dependencies for swagger2 below -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -56,6 +73,20 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.2.1.Final</version>
+				<configuration>
+					<hostname>127.0.0.1</hostname>
+					<port>9990</port>
+					<username>admin</username>
+					<password>admin</password>
+					<name>application.war</name>
+				</configuration>
+				<!-- <executions> <execution> <phase>install</phase> <goals> <goal>deploy</goal> 
+					</goals> </execution> </executions> -->
 			</plugin>
 		</plugins>
 	</build>

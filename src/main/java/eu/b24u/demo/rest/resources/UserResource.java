@@ -3,6 +3,7 @@ package eu.b24u.demo.rest.resources;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Profile("prd")
 @RestController
 @RequestMapping("/rest/user/")
 @Api(value = "User Resource REST Endpoint, show users")
